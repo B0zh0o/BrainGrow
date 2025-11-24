@@ -16,16 +16,4 @@ const Subject = sequelize.define("Subject", {
 });
 
 
-// class User{
-
-//     static currentId = 1;
-
-//     constructor(email, password, username){
-//         this.id = null;
-//         this.email = email;
-//         this.password = password;
-//         this.username = username;
-//     }
-// }
-
 export default Subject;

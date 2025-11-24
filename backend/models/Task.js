@@ -12,7 +12,6 @@ const Task = sequelize.define("Task", {
     type: {
         type: DataTypes.TEXT,
         allowNull: false,
-        unique: true
     },
 
     title: {

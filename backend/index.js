@@ -12,6 +12,7 @@ async function startApp(){
         console.error("Problem with establishing connection.", error);
     }
 
+    //test query
     await sequelize.sync({alter: true});
     console.log("Database synced successfully.")
     const user1 = User.build({username: "Bozho", email: "someemail@gmail.com", password: "123456"});
