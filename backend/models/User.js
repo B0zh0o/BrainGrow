@@ -1,32 +1,64 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db.js";
 
-const User = sequelize.define("User", {
+const User = sequelize.define(
+  "User",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        unique: true
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      unique: true,
     },
 
     username: {
-        type: DataTypes.STRING(35),
-        allowNull: false,
-        unique: true
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Username cannot be empty.",
+        },
+        len: {
+          args: [3, 50],
+          msg: "Username must be between 3 and 50 characters long.",
+        },
+      },
     },
 
     email: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-        unique: true
-    },
+      type: DataTypes.STRING(254),
+      allowNull: false,
+      unique: {
+        msg: "Email already exists.",
+      },
+      validate: {
+        notEmpty: {
+          msg: "Email cannot be empty.",
+        },
+        isEmail: {
+          msg: "Email format is invalid.",
+        },
+      }, 
+    }, 
 
     password: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        unique: false
-    }
-
-});
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Password cannot be empty.",
+        },
+        len: {
+          args: [8, 255],
+          msg: "Password must be between 8 and 255 characters long.",
+        },
+      },
+    },
+  },
+ // {
+  //  timestamps: true,
+   // tableName: "Users",
+ // }
+);
 
 export default User;

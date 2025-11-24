@@ -9,11 +9,26 @@ const Subject = sequelize.define("Subject", {
         unique: true
     },
 
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: "uniqueUserSubject",
+    },
+
     title: {
-        type: DataTypes.TEXT,
-        allowNull: false
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: "uniqueUserSubject",
+        validate: {
+            notEmpty: {
+                msg: "Subject title cannot be empty."
+            },
+            len: {
+                args: [2, 255],
+                msg: "Subject title must be between 2 and 255 characters."
+            }
+        }
     }
 });
-
 
 export default Subject;
