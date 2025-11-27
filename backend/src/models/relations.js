@@ -1,8 +1,7 @@
-// models/index.js (for example)
-import User from "./User";
-import Task from "./Task";
-import FlashCard from "./FlashCard";
-import Subject from "./Subject";
+import User from "./User.js";
+import Task from "./Task.js";
+import FlashCard from "./FlashCard.js";
+import Subject from "./Subject.js";
 
 User.hasMany(Task, { foreignKey: "userId", onDelete: "CASCADE" });
 Task.belongsTo(User, { foreignKey: "userId" });

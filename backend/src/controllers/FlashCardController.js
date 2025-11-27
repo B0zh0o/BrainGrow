@@ -1,4 +1,4 @@
-import FlashCardService from "../services/flashcardService.js";
+import FlashCardService from "../services/FlashCardService.js";
 
 async function createFlashCard(req, res) {
     try {

@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { User } from "../models/index.js";
+import User from "../models/User.js";
 
 const JWT_SECRET = "supersecretkey";
 
@@ -25,11 +25,10 @@ async function register(req, res) {
             password: hashedPassword
         });
 
-        res.status(201).json({ message: "User registered successfully." });
-
+        return res.status(201).json({ message: "User registered successfully." });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 }
 
@@ -57,19 +56,19 @@ async function login(req, res) {
             { expiresIn: "30d" }
         );
 
-        res.json({
+        return res.json({
             message: "Login successful.",
             token,
             user: {
                 id: user.id,
                 username: user.username,
-                email: user.email
-            }
+                email: user.email,
+            },
         });
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 }
 

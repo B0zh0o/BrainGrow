@@ -1,4 +1,4 @@
-import TaskService from "../services/taskService.js";
+import TaskService from "../services/TaskService.js";
 
 async function createTask(req, res) {
     try {

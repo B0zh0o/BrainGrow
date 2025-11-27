@@ -1,11 +1,10 @@
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = "supersecretkey"; // move to .env later
+const JWT_SECRET = "supersecretkey";
 
 export function auth(req, res, next) {
   const authHeader = req.headers.authorization;
 
-  // Expect: Authorization: Bearer <token>
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ message: "No token provided." });
   }
@@ -15,9 +14,9 @@ export function auth(req, res, next) {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    req.user = { id: decoded.id }; // <-- THIS gives access in controllers: req.user.id
+    req.user = { id: decoded.id };
 
-    next(); // Continue to the next handler (controller)
+    next();
   } catch (err) {
     return res.status(403).json({ message: "Invalid or expired token." });
   }

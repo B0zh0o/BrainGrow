@@ -1,4 +1,4 @@
-import SubjectService from "../services/subjectService.js";
+import SubjectService from "../services/SubjectService.js";
 
 async function getSubjects(req, res) {
     try {
