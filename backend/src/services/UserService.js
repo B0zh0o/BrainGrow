@@ -1,12 +1,12 @@
 import User from "../models/User.js";
 
 const UserService = {
-  async findByEmail(email) {
-    return User.findOne({ where: { email } });
-  },
-
   async createUser(data) {
     return User.create(data);
+  },
+
+  async findByEmail(email) {
+    return User.findOne({ where: { email } });
   },
 
   async getUsers() {

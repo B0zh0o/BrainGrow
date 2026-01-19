@@ -1,5 +1,18 @@
 import SubjectService from "../services/SubjectService.js";
 
+
+async function createSubject(req, res) {
+    try {
+        const { title } = req.body;
+
+        const subject = await SubjectService.createSubject(req.user.id, title);
+        res.status(201).json(subject);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+}
+
 async function getSubjects(req, res) {
     try {
         const subjects = await SubjectService.getSubjects(req.user.id);
@@ -25,18 +38,6 @@ async function getSubjectById(req, res) {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: error.message });
-    }
-}
-
-async function createSubject(req, res) {
-    try {
-        const { title } = req.body;
-
-        const subject = await SubjectService.createSubject(req.user.id, title);
-        res.status(201).json(subject);
-    } catch (error) {
-        console.error(error);
-        res.status(400).json({ message: error.message });
     }
 }
 

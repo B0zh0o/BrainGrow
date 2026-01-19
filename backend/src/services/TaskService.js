@@ -1,18 +1,6 @@
 import { Task, Subject } from "../models/index.js";
 
 const TaskService = {
-    async getTasks(userId) {
-        return Task.FindAll({
-            where: { userId },
-            order: [["due", "ASC"]]
-        });
-    }, 
-
-    async getTaskById(userId, taskId) {
-        return Task.findOne({
-            where: { id: taskId, userId }
-        });
-    },
 
     async createTask(userId, data) {
         const {
@@ -33,7 +21,7 @@ const TaskService = {
             const subject = await Subject.findOne({
                 where: { id: subjectId, userId }
             });
-            if(!subject) {
+            if (!subject) {
                 throw new Error("Invalid subject for this user.");
             }
         }
@@ -49,6 +37,21 @@ const TaskService = {
             importance: importance || null
         });
     },
+
+
+    async getTasks(userId) {
+        return Task.findAll({
+            where: { userId },
+            order: [["due", "ASC"]],
+        });
+    },
+
+    async getTaskById(userId, taskId) {
+        return Task.findOne({
+            where: { id: taskId, userId }
+        });
+    },
+
 
     async updateTask(userId, taskId, data) {
         const task = await Task.findOne({ where: { id: taskId, userId } });
@@ -70,13 +73,9 @@ const TaskService = {
     },
 
     async deleteTask(userId, taskId) {
-        const deletedCount = await Task.destroy({
-            where: { id: taskId, userId }
-        });
-
-        if (deletedCount == 0) {
-             throw new Error("Task not found or you do not have permission.");
-        }
+        const deletedCount = await Task.destroy({ where: { id: taskId, userId } });
+        if (deletedCount === 0) throw new Error("Task not found or you do not have permission.");
+        return true;
     }
 };
 
