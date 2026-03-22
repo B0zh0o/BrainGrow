@@ -1,10 +1,10 @@
 import httpMocks from "node-mocks-http";
-import AuthController from "../../controllers/AuthController.js";
-import User from "../../models/User.js";
+import AuthController from "../controllers/UserController.js";
+import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-jest.mock("../../models/User.js");
+jest.mock("../models/User.js");
 jest.mock("bcrypt");
 jest.mock("jsonwebtoken");
 

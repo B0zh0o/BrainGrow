@@ -3,7 +3,7 @@ import { Subject } from "../models/index.js";
 const SubjectService = {
     async createSubject(userId, title) {
         const cleanTitle = title?.trim();
-        if(!cleanTitle) {
+        if (!cleanTitle) {
             throw new Error("Subject title is required.");
         }
 
@@ -14,13 +14,19 @@ const SubjectService = {
         if (existing) {
             throw new Error("You already have a subject with this title.");
         }
+
+        return await Subject.create({
+            userId,
+            title: cleanTitle
+        });
     },
+
         
     async getSubjects(userId) {
         return Subject.findAll({ where: { userId } });
     },
 
-    async getSubjectById(userId, subjectid) {
+    async getSubjectById(userId, subjectId) {
         return Subject.findOne({ where: { id: subjectId, userId } });
     },
 

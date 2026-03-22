@@ -1,8 +1,9 @@
-import Sequelize from 'sequelize'
-const sequelize = new Sequelize("BrainGrowDB", "root", "Test123!", {
-    host: "localhost",
-    dialect: "mysql",
-    port: 3306,
+import { Sequelize } from 'sequelize';
+import 'dotenv/config';
+
+const sequelize = new Sequelize('braingrowdb', 'root', process.env.DB_PASSWORD, {
+    host: 'localhost',
+    dialect: 'mysql',
     logging: false
 });
 

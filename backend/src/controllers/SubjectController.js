@@ -6,7 +6,7 @@ async function createSubject(req, res) {
         const { title } = req.body;
 
         const subject = await SubjectService.createSubject(req.user.id, title);
-        res.status(201).json(subject);
+        return res.status(201).json(subject);
     } catch (error) {
         console.error(error);
         res.status(400).json({ message: error.message });
