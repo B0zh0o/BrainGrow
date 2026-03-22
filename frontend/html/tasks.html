@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <title>Tasks</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
@@ -14,24 +14,14 @@
 
 <form id="taskForm">
     <input type="text" id="title" placeholder="Title" required />
-    <br><br>
-
-```
-<input type="text" id="type" placeholder="Type" required />
-<br><br>
-
-<textarea id="description" placeholder="Description"></textarea>
-<br><br>
-
-<button type="submit">Add Task</button>
-```
-
+    <input type="text" id="type" placeholder="Type" required />
+    <textarea id="description" placeholder="Description"></textarea>
+    <button type="submit">Add Task</button>
 </form>
 
 <h3>Task List</h3>
 <ul id="taskList"></ul>
 
 <script src="../js/tasks.js"></script>
-
 </body>
 </html>
