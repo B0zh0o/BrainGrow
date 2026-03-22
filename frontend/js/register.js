@@ -1,35 +1,26 @@
-import User from "../../../backend/models/User.js";
+const form = document.getElementById("registerForm");
 
-class Register{
-    constructor(){
-        this.users = [];
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, email, password })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+        alert("Registered! Please login.");
+        window.location.href = "login.html";
+    } else {
+        alert(data.message);
     }
-
-    registerUser(email, password, username){
-        const user = new User(email, password, username);
-
-        if(!this.userExists(user.email)){
-        user.id = User.currentId;
-        User.currentId++;
-        this.users.push(user);
-        console.log("User added.");
-
-        }
-        else{
-            console.log("User already exists.");
-        }
-    }
-
-    userExists(email){
-        if(this.users.some(u => u.email === email)){
-            return true;
-        }
-        return false;
-    }
-}
-
-const register = new Register();
-register.registerUser("test@example.com", "1234", "TestUser");
-register.registerUser("tests@example.com", "2345", "TestUser");
-register.registerUser("test@example.com", "1234", "TestUser");
-console.log("All users:", register.users);
+});
