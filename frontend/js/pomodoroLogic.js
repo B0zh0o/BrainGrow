@@ -2,6 +2,7 @@
 const timeDisplay = document.getElementById("time");
 const modeDisplay = document.getElementById("mode");
 const sessionCountDisplay = document.getElementById("sessionCount");
+const statusMessage = document.getElementById("statusMessage");
 
 let currentWork = 40;
 let currentBreak = 10;
@@ -10,55 +11,50 @@ let timer;
 let isRunning = false;
 let isWorkMode = true;
 
-const sound = new Audio("/sounds/notification.mp3");
+const sound = new Audio("../resources/sounds/notification.mp3");
+const API_URL = "http://localhost:3000";
 
 /* LOAD SETTINGS + USER */
 async function loadData() {
-    // SETTINGS
-    const res = await fetch("http://localhost:3000/pomodoros", {
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-    });
+    try {
+        const res = await fetch(API_URL + "/pomodoros", {
+            headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+        });
+        const settings = await res.json();
+        settingsList.innerHTML = "";
 
-    const settings = await res.json();
-    settingsList.innerHTML = "";
+        settings.forEach(s => {
+            const box = document.createElement("div");
+            box.className = "setting-box";
+            box.innerHTML = `
+                <span>${s.label} (${s.workTime}/${s.breakTime})</span>
+                <button data-id="${s.id}">X</button>
+            `;
 
-    settings.forEach(s => {
-        const box = document.createElement("div");
-        box.className = "setting-box";
+            box.onclick = (e) => {
+                if (e.target.tagName === "BUTTON") return;
+                currentWork = s.workTime;
+                currentBreak = s.breakTime;
+                resetTimer();
+            };
 
-        box.innerHTML = `
-            <span>${s.label} (${s.workTime}/${s.breakTime})</span>
-            <button data-id="${s.id}">X</button>
-        `;
+            box.querySelector("button").onclick = async (e) => {
+                e.stopPropagation();
+                await fetch(API_URL + "/pomodoros/" + s.id, {
+                    method: "DELETE",
+                    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+                });
+                loadData();
+            };
+            settingsList.appendChild(box);
+        });
 
-        // SELECT
-        box.onclick = (e) => {
-            if (e.target.tagName === "BUTTON") return;
-
-            currentWork = s.workTime;
-            currentBreak = s.breakTime;
-            resetTimer();
-        };
-
-        // DELETE
-        box.querySelector("button").onclick = async () => {
-            await fetch("http://localhost:3000/pomodoros" + s.id, {
-                method: "DELETE",
-                headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-            });
-            loadData();
-        };
-
-        settingsList.appendChild(box);
-    });
-
-    // USER (session count)
-    const userRes = await fetch("/auth/me", {
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-    });
-
-    const user = await userRes.json();
-    sessionCountDisplay.textContent = user.totalSessions;
+        const userRes = await fetch(API_URL + "/auth/me", {
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        });
+        const user = await userRes.json();
+        sessionCountDisplay.textContent = user.totalSessions;
+    } catch (err) { console.error("Load error:", err); }
 }
 
 /* ADD PRESET */
@@ -67,7 +63,7 @@ document.getElementById("addSetting").onclick = async () => {
     const workTime = document.getElementById("workInput").value;
     const breakTime = document.getElementById("breakInput").value;
 
-    await fetch("http://localhost:3000/pomodoros", {
+    await fetch(API_URL + "/pomodoros", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -75,11 +71,10 @@ document.getElementById("addSetting").onclick = async () => {
         },
         body: JSON.stringify({ label, workTime, breakTime })
     });
-
     loadData();
 };
 
-/* TIMER */
+/* TIMER LOGIC */
 function updateDisplay() {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
@@ -88,24 +83,23 @@ function updateDisplay() {
 
 function switchMode() {
     sound.play();
-
     if (isWorkMode) {
         seconds = currentBreak * 60;
         modeDisplay.textContent = "Break";
+        statusMessage.textContent = "Take a break!";
     } else {
         seconds = currentWork * 60;
         modeDisplay.textContent = "Work";
+        statusMessage.textContent = "Time for work!";
     }
-
     isWorkMode = !isWorkMode;
 }
 
 async function completeSession() {
-    const res = await fetch("/pomodoros/complete", {
+    const res = await fetch(API_URL + "/pomodoros/complete", {
         method: "POST",
         headers: { Authorization: "Bearer " + localStorage.getItem("token") }
     });
-
     const data = await res.json();
     sessionCountDisplay.textContent = data.totalSessions;
 }
@@ -113,21 +107,23 @@ async function completeSession() {
 function startTimer() {
     if (isRunning) return;
     isRunning = true;
+    if (statusMessage) statusMessage.textContent = "";
+
+    updateDisplay();
 
     timer = setInterval(async () => {
+        // ТОВА БЕШЕ ПРОПУСНАТО:
         seconds--;
         updateDisplay();
 
         if (seconds <= 0) {
             clearInterval(timer);
             isRunning = false;
-
             if (isWorkMode) {
                 await completeSession();
             }
-
             switchMode();
-            startTimer(); // auto start next
+            updateDisplay();
         }
     }, 1000);
 }
@@ -142,6 +138,7 @@ function resetTimer() {
     isWorkMode = true;
     seconds = currentWork * 60;
     modeDisplay.textContent = "Work";
+    if (statusMessage) statusMessage.textContent = "Get ready!";
     updateDisplay();
 }
 
@@ -151,6 +148,5 @@ document.getElementById("pause").onclick = pauseTimer;
 document.getElementById("reset").onclick = resetTimer;
 
 /* INIT */
-localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzc0MjQ2NTI3LCJleHAiOjE3NzY4Mzg1Mjd9.cNkvXoYEzKdXzEkYP1nY-Pz0Wmnui6F-rzkpGVrJ978");
 updateDisplay();
 loadData();

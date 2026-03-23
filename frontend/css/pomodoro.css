@@ -1,76 +1,193 @@
-body {
-    font-family: Arial;
-    background: #0f172a;
-    color: white;
-    margin: 0;
+﻿body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: #0f172a;
+color: white;
+margin: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
 }
 
+/* Навигационна лента */
+.navbar {
+display: flex;
+justify-content: space-between;
+padding: 1rem 2rem;
+background: rgba(15, 23, 42, 0.8);
+backdrop-filter: blur(10px);
+position: fixed;
+top: 0;
+width: 100%;
+box-sizing: border-box;
+z-index: 1000;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar a {
+color: white;
+text-decoration: none;
+margin-left: 20px;
+font-weight: 500;
+opacity: 0.7;
+transition: 0.3s;
+}
+
+.navbar a:hover {
+opacity: 1;
+color: #4ade80;
+}
+
+/* Основен контейнер */
 .pomodoro-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding-top: 120px; /* Място за набара */
+width: 100%;
+max-width: 800px;
 }
 
+/* Таймер секция */
 .timer {
-    text-align: center;
+text-align: center;
+margin-bottom: 30px;
 }
 
 #time {
-    font-size: 80px;
+font-size: 100px;
+font-weight: bold;
+margin: 10px 0;
+}
+
+#statusMessage {
+font-size: 1.8rem;
+font-weight: bold;
+color: #cbd5e1;
+margin-bottom: 5px;
+min-height: 2.2rem; /* Пази мястото дори когато текстът е празен */
 }
 
 #mode {
-    font-size: 20px;
-    color: #94a3b8;
+font-size: 22px;
+color: #94a3b8;
+text-transform: uppercase;
+letter-spacing: 2px;
 }
 
+/* Контролни бутони (Start, Pause, Reset) */
 .controls button {
     margin: 5px;
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 12px 25px;
+    border-radius: 8px;
     border: none;
     background: #22c55e;
     color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    min-width: 100px;
 }
 
-.session-counter {
-    margin: 20px;
-    font-size: 18px;
-}
-
-.add-setting {
-    margin: 20px;
-}
-
-    .add-setting input {
-        padding: 8px;
-        margin: 5px;
-        border-radius: 8px;
-        border: none;
+    .controls button:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.1);
+        background: #16a34a;
     }
 
+/* Сесии */
+.session-counter {
+margin: 20px;
+font-size: 18px;
+color: #94a3b8;
+}
+
+/* Форма за добавяне */
+.add-setting {
+background: rgba(255, 255, 255, 0.03);
+padding: 20px;
+border-radius: 15px;
+margin-bottom: 30px;
+display: flex;
+gap: 10px;
+align-items: center;
+}
+
+.add-setting input {
+padding: 10px;
+border-radius: 6px;
+border: 1px solid #334155;
+background: #1e293b;
+color: white;
+outline: none;
+}
+
+#addSetting {
+    background-color: #12612f;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#addSetting:hover {
+background-color: #dc2626;
+transform: scale(1.05);
+}
+
+/* Списък с таймери (Stack) */
 .settings {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    width: 100%;
-    max-width: 600px;
+display: flex;
+flex-direction: column;
+gap: 12px;
+width: 100%; /* Заема цялата широчина на контейнера */
+max-width: 700px; /* Увеличих го малко за по-издължен вид */
+padding-bottom: 50px;
+align-items: stretch; /* Това кара кутиите да се разпънат докрай */
 }
 
 .setting-box {
-    background: #1e293b;
-    padding: 15px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+width: 100%; /* Важно е да е 100% */
+background: #1e293b;
+padding: 18px 25px;
+border-radius: 12px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border: 1px solid rgba(255, 255, 255, 0.05);
+box-sizing: border-box; /* Гарантира, че паддингът не чупи широчината */
 }
 
-    .setting-box button {
-        background: red;
-        border: none;
-        color: white;
-        border-radius: 6px;
-        cursor: pointer;
-    }
+
+.setting-box:hover {
+background: #2d3a4f;
+border-color: rgba(255, 255, 255, 0.2);
+}
+
+.setting-box span {
+font-size: 17px;
+font-weight: 500;
+}
+
+/* Бутон за изтриване (X) */
+.setting-box button {
+background: #ef4444;
+border: none;
+color: white;
+width: 28px;
+height: 28px;
+border-radius: 6px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+transition: 0.2s;
+}
+
+.setting-box button:hover {
+background: #b91c1c;
+transform: scale(1.1);
+}

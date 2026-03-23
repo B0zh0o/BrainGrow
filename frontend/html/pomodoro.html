@@ -6,12 +6,23 @@
     <link rel="stylesheet" href="../css/pomodoro.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#">Flashcards</a>
+            <a href="#">Tasks</a>
+        </div>
+        <div class="user-controls">
+            <a href="#">Register</a>
+            <a href="#" class="logout">Logout</a>
+        </div>
+    </nav>
 
     <div class="pomodoro-container">
 
         <!-- TIMER -->
         <div class="timer">
             <h1 id="time">40:00</h1>
+            <h2 id="statusMessage">Get ready!</h2>
             <p id="mode">Work</p>
 
             <div class="controls">
