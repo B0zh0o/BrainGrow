@@ -16,29 +16,29 @@ const User = sequelize.define(
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Username cannot be empty.",
+          msg: "Username cannot be empty."
         },
         len: {
           args: [3, 50],
-          msg: "Username must be between 3 and 50 characters long.",
-        },
-      },
+          msg: "Username must be between 3 and 50 characters long."
+        }
+      }
     },
 
     email: {
       type: DataTypes.STRING(254),
       allowNull: false,
       unique: {
-        msg: "Email already exists.",
+        msg: "Email already exists."
       },
       validate: {
         notEmpty: {
-          msg: "Email cannot be empty.",
+          msg: "Email cannot be empty."
         },
         isEmail: {
-          msg: "Email format is invalid.",
-        },
-      }, 
+          msg: "Email format is invalid."
+        }
+      }
     }, 
 
     password: {
@@ -46,19 +46,18 @@ const User = sequelize.define(
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Password cannot be empty.",
+          msg: "Password cannot be empty."
         },
         len: {
           args: [8, 255],
-          msg: "Password must be between 8 and 255 characters long.",
-        },
-      },
+          msg: "Password must be between 8 and 255 characters long."
+        }
+      }
     },
-  },
- // {
-  //  timestamps: true,
-   // tableName: "Users",
- // }
-);
+    totalSessions: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    }
+});
 
 export default User;

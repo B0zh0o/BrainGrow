@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="../css/pomodoro.css">
+</head>
+<body>
+
+    <div class="pomodoro-container">
+
+        <!-- TIMER -->
+        <div class="timer">
+            <h1 id="time">40:00</h1>
+            <p id="mode">Work</p>
+
+            <div class="controls">
+                <button id="start">Start</button>
+                <button id="pause">Pause</button>
+                <button id="reset">Reset</button>
+            </div>
+        </div>
+
+        <!-- SESSION COUNTER -->
+        <div class="session-counter">
+            Sessions completed: <span id="sessionCount">0</span>
+        </div>
+
+        <!-- ADD PRESET -->
+        <div class="add-setting">
+            <input type="text" id="labelInput" placeholder="Label">
+            <input type="number" id="workInput" placeholder="Work (min)">
+            <input type="number" id="breakInput" placeholder="Break (min)">
+            <button id="addSetting">Add</button>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="settings" id="settingsList"></div>
+
+    </div>
+
+    <script src="../js/pomodoroLogic.js"></script>
+</body>
+</html>

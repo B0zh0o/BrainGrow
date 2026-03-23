@@ -1,0 +1,76 @@
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    margin: 0;
+}
+
+.pomodoro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.timer {
+    text-align: center;
+}
+
+#time {
+    font-size: 80px;
+}
+
+#mode {
+    font-size: 20px;
+    color: #94a3b8;
+}
+
+.controls button {
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: #22c55e;
+    color: white;
+}
+
+.session-counter {
+    margin: 20px;
+    font-size: 18px;
+}
+
+.add-setting {
+    margin: 20px;
+}
+
+    .add-setting input {
+        padding: 8px;
+        margin: 5px;
+        border-radius: 8px;
+        border: none;
+    }
+
+.settings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.setting-box {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .setting-box button {
+        background: red;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+    }
