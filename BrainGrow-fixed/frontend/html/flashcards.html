@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards · BrainGrow</title>
+    <link rel="stylesheet" href="../css/flashcards.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="../index.html">🏠 Home</a>
+            <a href="flashcards.html" class="active">Flashcards</a>
+            <a href="tasks.html">Tasks</a>
+            <a href="pomodoro.html">⏱ Pomodoro</a>
+        </div>
+        <div class="nav-right">
+            <a href="register.html">Register</a>
+            <a href="#">Logout</a>
+        </div>
+    </nav>
+
+    <div class="app">
+
+        <!-- HEADER -->
+        <div class="page-header">
+            <h1>Flashcards</h1>
+            <p>Научи се чрез повторение</p>
+        </div>
+
+        <!-- CATEGORY FILTER -->
+        <div class="filter-row">
+            <select id="categoryFilter" onchange="filterCards()">
+                <option value="all">Всички категории</option>
+            </select>
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="progress-bar-wrap">
+            <div class="progress-meta">
+                <span>Прогрес</span>
+                <span id="progress">Карта 0/0 | ✔️ 0 ❌ 0</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+            </div>
+        </div>
+
+        <!-- CARD -->
+        <div id="card" class="flashcard" onclick="flipCard()">
+            <div class="inner">
+                <div id="front" class="face">Няма карти</div>
+                <div id="back" class="face back"></div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="controls">
+            <button class="btn-nav btn-blue" onclick="prevCard()" title="Предишна">⬅</button>
+            <button class="btn-nav btn-icon" onclick="shuffle()" title="Разбъркай">🔀</button>
+            <button class="btn-nav btn-green" onclick="nextCard()" title="Следваща">➡</button>
+        </div>
+
+        <!-- MARK CORRECT / WRONG -->
+        <div class="mark-controls">
+            <button class="btn-mark correct" onclick="mark(true)">✓ &nbsp;Знам го</button>
+            <button class="btn-mark wrong"   onclick="mark(false)">✗ &nbsp;Не знам</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ADD CARD PANEL -->
+        <div class="panel">
+            <div class="panel-label">Добави карта</div>
+            <div class="panel-row">
+                <input id="question" placeholder="Въпрос">
+                <input id="answer"   placeholder="Отговор">
+            </div>
+            <input id="category" placeholder="Категория (по избор)">
+            <button class="btn-add" onclick="addCard()">+ Добави карта</button>
+        </div>
+
+        <!-- ADMIN -->
+        <div class="admin">
+            <button class="btn-edit"   onclick="editCard()">✏ Редактирай</button>
+            <button class="btn-delete" onclick="deleteCard()">🗑 Изтрий</button>
+        </div>
+
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>
