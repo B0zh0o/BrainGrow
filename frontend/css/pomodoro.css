@@ -1,26 +1,25 @@
 ﻿body {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-background: #0f172a;
-color: white;
-margin: 0;
-display: flex;
-flex-direction: column;
-align-items: center;
+    font-family: Arial, Helvetica, sans-serif; 
+    background: #0b1220; 
+    color: white;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Навигационна лента */
 .navbar {
-display: flex;
-justify-content: space-between;
-padding: 1rem 2rem;
-background: rgba(15, 23, 42, 0.8);
-backdrop-filter: blur(10px);
-position: fixed;
-top: 0;
-width: 100%;
-box-sizing: border-box;
-z-index: 1000;
-border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: #0f172a;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000;
 }
 
 .navbar a {
@@ -37,17 +36,22 @@ opacity: 1;
 color: #4ade80;
 }
 
-/* Основен контейнер */
+.navbar .nav-links a.active {
+    color: #4ade80;
+    opacity: 1;
+    border-bottom: 2px solid #4ade80;
+}
+
+
 .pomodoro-container {
 display: flex;
 flex-direction: column;
 align-items: center;
-padding-top: 120px; /* Място за набара */
+padding-top: 120px; 
 width: 100%;
 max-width: 800px;
 }
 
-/* Таймер секция */
 .timer {
 text-align: center;
 margin-bottom: 30px;
@@ -64,7 +68,7 @@ font-size: 1.8rem;
 font-weight: bold;
 color: #cbd5e1;
 margin-bottom: 5px;
-min-height: 2.2rem; /* Пази мястото дори когато текстът е празен */
+min-height: 2.2rem; 
 }
 
 #mode {
@@ -74,7 +78,6 @@ text-transform: uppercase;
 letter-spacing: 2px;
 }
 
-/* Контролни бутони (Start, Pause, Reset) */
 .controls button {
     margin: 5px;
     padding: 12px 25px;
@@ -94,14 +97,12 @@ letter-spacing: 2px;
         background: #16a34a;
     }
 
-/* Сесии */
 .session-counter {
 margin: 20px;
 font-size: 18px;
 color: #94a3b8;
 }
 
-/* Форма за добавяне */
 .add-setting {
 background: rgba(255, 255, 255, 0.03);
 padding: 20px;
@@ -137,19 +138,18 @@ background-color: #dc2626;
 transform: scale(1.05);
 }
 
-/* Списък с таймери (Stack) */
 .settings {
 display: flex;
 flex-direction: column;
 gap: 12px;
-width: 100%; /* Заема цялата широчина на контейнера */
-max-width: 700px; /* Увеличих го малко за по-издължен вид */
+width: 100%; 
+max-width: 700px; 
 padding-bottom: 50px;
-align-items: stretch; /* Това кара кутиите да се разпънат докрай */
+align-items: stretch; 
 }
 
 .setting-box {
-width: 100%; /* Важно е да е 100% */
+width: 100%; 
 background: #1e293b;
 padding: 18px 25px;
 border-radius: 12px;
@@ -157,7 +157,7 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 border: 1px solid rgba(255, 255, 255, 0.05);
-box-sizing: border-box; /* Гарантира, че паддингът не чупи широчината */
+box-sizing: border-box; 
 }
 
 
@@ -171,7 +171,6 @@ font-size: 17px;
 font-weight: 500;
 }
 
-/* Бутон за изтриване (X) */
 .setting-box button {
 background: #ef4444;
 border: none;
@@ -191,3 +190,217 @@ transition: 0.2s;
 background: #b91c1c;
 transform: scale(1.1);
 }
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0b1220;
+    color: white;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: #0f172a;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        font-weight: 500;
+        opacity: 0.7;
+        transition: 0.3s;
+    }
+
+        .navbar a:hover {
+            opacity: 1;
+            color: #4ade80;
+        }
+
+    .navbar .nav-links a.active {
+        color: #4ade80;
+        opacity: 1;
+        border-bottom: 2px solid #4ade80;
+    }
+
+
+.pomodoro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 120px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.timer {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#time {
+    font-size: 100px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+#statusMessage {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #cbd5e1;
+    margin-bottom: 5px;
+    min-height: 2.2rem;
+}
+
+#mode {
+    font-size: 22px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.controls button {
+    margin: 5px;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    background: #22c55e;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    min-width: 100px;
+}
+
+    .controls button:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.1);
+        background: #16a34a;
+    }
+
+.session-counter {
+    margin: 20px;
+    font-size: 18px;
+    color: #94a3b8;
+}
+
+.add-setting {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+    .add-setting input {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #334155;
+        background: #1e293b;
+        color: white;
+        outline: none;
+    }
+
+#addSetting {
+    background-color: #12612f;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    #addSetting:hover {
+        background-color: #dc2626;
+        transform: scale(1.05);
+    }
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 700px;
+    padding-bottom: 50px;
+    align-items: stretch;
+}
+
+.setting-box {
+    width: 100%;
+    background: #1e293b;
+    padding: 18px 25px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-sizing: border-box;
+}
+
+
+    .setting-box:hover {
+        background: #2d3a4f;
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .setting-box span {
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    .setting-box button {
+        background: #ef4444;
+        border: none;
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+
+        .setting-box button:hover {
+            background: #b91c1c;
+            transform: scale(1.1);
+        }
+
+.logout {
+    background: none; 
+    border: none; 
+    color: white; 
+    padding: 8px 16px; 
+    font-weight: 500; 
+    font-size: 14px;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: inherit; 
+    margin-left: 20px;
+}
+
+    .logout:hover {
+        opacity: 1;
+        color: #4ade80; 
+        transform: none; 
+        background: none;
+    }

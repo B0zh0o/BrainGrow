@@ -8,18 +8,18 @@
 <body>
     <nav class="navbar">
         <div class="nav-links">
-            <a href="#">Flashcards</a>
-            <a href="#">Tasks</a>
+            <a href="./tasks.html">Tasks</a>
+            <a href="./pomodoro.html">Pomodoro timer</a>
+            <a href="./flashcards.html">Flashcards</a>
         </div>
         <div class="user-controls">
-            <a href="#">Register</a>
-            <a href="#" class="logout">Logout</a>
+            <a href="./register.html">Register</a>
+            <button class="logout" id="logoutBtn">Logout</button> 
         </div>
     </nav>
 
     <div class="pomodoro-container">
 
-        <!-- TIMER -->
         <div class="timer">
             <h1 id="time">40:00</h1>
             <h2 id="statusMessage">Get ready!</h2>
@@ -32,12 +32,10 @@
             </div>
         </div>
 
-        <!-- SESSION COUNTER -->
         <div class="session-counter">
             Sessions completed: <span id="sessionCount">0</span>
         </div>
 
-        <!-- ADD PRESET -->
         <div class="add-setting">
             <input type="text" id="labelInput" placeholder="Label">
             <input type="number" id="workInput" placeholder="Work (min)">
@@ -45,7 +43,6 @@
             <button id="addSetting">Add</button>
         </div>
 
-        <!-- SETTINGS -->
         <div class="settings" id="settingsList"></div>
 
     </div>

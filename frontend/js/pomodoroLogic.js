@@ -142,11 +142,16 @@ function resetTimer() {
     updateDisplay();
 }
 
-/* EVENTS */
 document.getElementById("start").onclick = startTimer;
 document.getElementById("pause").onclick = pauseTimer;
 document.getElementById("reset").onclick = resetTimer;
 
-/* INIT */
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    window.location.href = 'login.html';
+});
+
 updateDisplay();
 loadData();

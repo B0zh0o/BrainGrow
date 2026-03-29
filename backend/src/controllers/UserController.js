@@ -1,14 +1,21 @@
-import bcrypt from "bcrypt";
+﻿import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import UserService from "../services/UserService.js";
 
 const JWT_SECRET = "supersecretkey";
 
 const UserController = {
-  //AUTH
   async register(req, res) {
     try {
       const { username, email, password } = req.body;
+
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+        if (!passwordRegex.test(password)) {
+            return res.status(400).json({
+                message: "Паролата трябва да е поне 8 символа и да съдържа и букви, и цифри!"
+            });
+        }
 
       if (!username || !email || !password) {
         return res.status(400).json({ message: "All fields are required." });
@@ -68,7 +75,6 @@ const UserController = {
     }
   },
 
-  // CRUD
   async create(req, res) {
     try {
       const { username, email, password } = req.body;

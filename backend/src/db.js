@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize';
-import 'dotenv/config';
 
-const sequelize = new Sequelize('braingrowdb', 'root', process.env.DB_PASSWORD, {
+const sequelize = new Sequelize('braingrowdb', 'root', "Basket*627", {
     host: 'localhost',
     dialect: 'mysql',
     logging: false
