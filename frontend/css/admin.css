@@ -1,0 +1,41 @@
+body {
+    font-family: Arial;
+    background: #0b1220;
+    color: white;
+    margin: 20px;
+}
+
+.admin-container {
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #0f172a;
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid #334155;
+    text-align: left;
+}
+
+th {
+    background: #1e293b;
+    color: #fbbf24;
+}
+
+.delete-btn {
+    background: #ef4444;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .delete-btn:hover {
+        background: #dc2626;
+    }

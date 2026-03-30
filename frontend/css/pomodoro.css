@@ -418,3 +418,19 @@ body {
     #deleteAccLink:hover {
         color: #ef4444; 
     }
+
+#adminLink {
+    color: #fbbf24; 
+    font-weight: bold;
+    border: 1px dashed #fbbf24;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+    #adminLink:hover {
+        background: #fbbf24;
+        color: #0b1220;
+    }

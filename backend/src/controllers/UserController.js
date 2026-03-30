@@ -62,7 +62,7 @@ const UserController = {
         return res.status(400).json({ message: "Invalid email or password." });
       }
 
-      const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "30d" });
+        const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "30d" });
 
       return res.json({
         message: "Login successful.",

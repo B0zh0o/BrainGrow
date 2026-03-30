@@ -16,12 +16,36 @@ const API_URL = "http://localhost:3000";
 
 async function loadData() {
     try {
-        const res = await fetch(API_URL + "/pomodoros", {
-            headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-        });
-        const settings = await res.json();
-        settingsList.innerHTML = "";
+        const token = localStorage.getItem('token');
+        if (!token) return;
 
+        // 1. Вземаме данните за потребителя
+        const userRes = await fetch(API_URL + "/auth/me", {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const user = await userRes.json();
+
+        // Показваме броя сесии
+        sessionCountDisplay.textContent = user.totalSessions || 0;
+
+        // 2. Проверка за АДМИН (преди всичко останало)
+        console.log("User role check:", user.role);
+        const adminLink = document.getElementById('adminLink');
+        if (adminLink) {
+            if (user.role === 'admin') {
+                adminLink.style.display = 'inline-block';
+            } else {
+                adminLink.style.display = 'none';
+            }
+        }
+
+        // 3. Вземаме настройките (ТУК БЕШЕ ГРЕШКАТА - липсваше fetch-а)
+        const pomodoroRes = await fetch(API_URL + "/pomodoros", {
+            headers: { Authorization: "Bearer " + token }
+        });
+        const settings = await pomodoroRes.json(); // Вече 'settings' е дефинирано!
+
+        settingsList.innerHTML = "";
         settings.forEach(s => {
             const box = document.createElement("div");
             box.className = "setting-box";
@@ -41,19 +65,16 @@ async function loadData() {
                 e.stopPropagation();
                 await fetch(API_URL + "/pomodoros/" + s.id, {
                     method: "DELETE",
-                    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+                    headers: { Authorization: "Bearer " + token }
                 });
                 loadData();
             };
             settingsList.appendChild(box);
         });
 
-        const userRes = await fetch(API_URL + "/auth/me", {
-            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-        });
-        const user = await userRes.json();
-        sessionCountDisplay.textContent = user.totalSessions;
-    } catch (err) { console.error("Load error:", err); }
+    } catch (err) {
+        console.error("Load error:", err);
+    }
 }
 
 document.getElementById("addSetting").onclick = async () => {

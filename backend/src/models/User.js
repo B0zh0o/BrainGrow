@@ -1,6 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db.js";
 
+
+
 const User = sequelize.define(
   "User",
   {
@@ -9,7 +11,12 @@ const User = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
       unique: true,
-    },
+      },
+
+      role: {
+          type: DataTypes.STRING,
+          defaultValue: 'user'
+      },
 
     username: {
       type: DataTypes.STRING(50),
