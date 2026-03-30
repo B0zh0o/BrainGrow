@@ -4,11 +4,14 @@ import FlashCard from "./FlashCard.js";
 import Subject from "./Subject.js";
 import PomodoroTimer from "./PomodoroTimer.js";
 
-User.hasMany(Task, { foreignKey: "userId", onDelete: "CASCADE" });
-Task.belongsTo(User, { foreignKey: "userId" });
+User.hasMany(Task, { foreignKey: 'userId', onDelete: 'CASCADE' });
+Task.belongsTo(User, { foreignKey: 'userId' });
 
 User.hasMany(FlashCard, { foreignKey: "userId", onDelete: "CASCADE" });
 FlashCard.belongsTo(User, { foreignKey: "userId" });
+
+User.hasMany(PomodoroTimer, { foreignKey: 'userId', onDelete:"CASCADE"});
+PomodoroTimer.belongsTo(User, { foreignKey: 'userId' });
 
 User.hasMany(Subject, { foreignKey: "userId", onDelete: "CASCADE" });
 Subject.belongsTo(User, { foreignKey: "userId" });
@@ -19,7 +22,6 @@ Task.belongsTo(Subject, { foreignKey: "subjectId" });
 Subject.hasMany(FlashCard, { foreignKey: "subjectId" });
 FlashCard.belongsTo(Subject, { foreignKey: "subjectId" });
 
-User.hasMany(PomodoroTimer, { foreignKey: 'userId', as: 'pomodoroTimer' });
-PomodoroTimer.belongsTo(User, { foreignKey: 'userId' });
+
 
 export { User, Task, FlashCard, Subject };

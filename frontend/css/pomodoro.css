@@ -404,3 +404,17 @@ body {
         transform: none; 
         background: none;
     }
+
+#deleteAccLink {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 13px;
+    margin-right: 15px;
+    font-weight: 500;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+    #deleteAccLink:hover {
+        color: #ef4444; 
+    }

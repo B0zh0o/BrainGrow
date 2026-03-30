@@ -14,7 +14,6 @@ let isWorkMode = true;
 const sound = new Audio("../resources/sounds/notification.mp3");
 const API_URL = "http://localhost:3000";
 
-/* LOAD SETTINGS + USER */
 async function loadData() {
     try {
         const res = await fetch(API_URL + "/pomodoros", {
@@ -57,7 +56,6 @@ async function loadData() {
     } catch (err) { console.error("Load error:", err); }
 }
 
-/* ADD PRESET */
 document.getElementById("addSetting").onclick = async () => {
     const label = document.getElementById("labelInput").value;
     const workTime = document.getElementById("workInput").value;
@@ -74,7 +72,6 @@ document.getElementById("addSetting").onclick = async () => {
     loadData();
 };
 
-/* TIMER LOGIC */
 function updateDisplay() {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
@@ -112,7 +109,6 @@ function startTimer() {
     updateDisplay();
 
     timer = setInterval(async () => {
-        // ТОВА БЕШЕ ПРОПУСНАТО:
         seconds--;
         updateDisplay();
 

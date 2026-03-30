@@ -25,8 +25,7 @@ router.get("/me", auth, async (req, res) => {
 router.get("/", UserController.getAll);
 router.get("/:id", UserController.getOne);
 router.put("/:id", UserController.update);
-router.delete("/:id", UserController.remove);
-
+router.delete('/delete-me', auth, UserController.remove);
 
 
 export default router;

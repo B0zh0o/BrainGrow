@@ -80,12 +80,12 @@ const UserController = {
       const { username, email, password } = req.body;
 
       if (!username || !email || !password) {
-        return res.status(400).json({ message: "username, email, password are required." });
+        return res.status(400).json({ message: "username, email, password са нужни." });
       }
 
       const existingUser = await UserService.findByEmail(email);
       if (existingUser) {
-        return res.status(400).json({ message: "Email already exists." });
+        return res.status(400).json({ message: "EИмейлът вече съществува." });
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -144,7 +144,7 @@ const UserController = {
 
       const updated = await UserService.updateUser(Number(id), data);
       if (!updated) {
-        return res.status(404).json({ message: "User not found." });
+        return res.status(404).json({ message: "Потребителят не е намерен." });
       }
 
       return res.status(200).json(updated);
@@ -153,22 +153,26 @@ const UserController = {
       return res.status(500).json({ message: error.message });
     }
   },
+    async remove(req, res) {
+        try {
+            if (!req.user || !req.user.id) {
+                return res.status(401).json({ message: "Невалидна сесия." });
+            }
 
-  async remove(req, res) {
-    try {
-      const { id } = req.params;
+            const id = req.user.id;
+            console.log("Attempting to delete user with ID:", id);
 
-      const deleted = await UserService.deleteUser(Number(id));
-      if (!deleted) {
-        return res.status(404).json({ message: "User not found." });
-      }
+            const deleted = await UserService.deleteUser(Number(id));
+            if (!deleted) {
+                return res.status(404).json({ message: "Потребителят не е намерен." });
+            }
 
-      return res.status(200).json({ message: "User deleted successfully." });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: error.message });
+            return res.status(200).json({ message: "Потребителят е изтрит успешно." });
+        } catch (error) {
+            console.error("Грешка при изтриване:", error);
+            return res.status(500).json({ message: error.message });
+        }
     }
-  },
 };
 
-export default UserController;
+export default UserController

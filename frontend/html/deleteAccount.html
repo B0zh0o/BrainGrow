@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Account - BrainGrow</title>
+    <link rel="stylesheet" href="../css/deleteAccount.css"> </head>
+<body>
+
+    <div class="delete-container">
+        <h1>Delete Account</h1>
+        <p class="warning-text">
+            Type <span class="phrase-highlight">I_CONFIRM_MY_CHOICE</span> to finish deletion. 
+            After deletion there will be no going back!
+        </p>
+
+        <input type="text" id="confirmInput" class="delete-input" placeholder="Type the phrase here...">
+
+        <button id="finalDeleteBtn" disabled>Delete My Account Permanently</button>
+
+        <a href="./pomodoro.html" class="cancel-link">Cancel and go back</a>
+    </div>
+
+    <script>
+        const input = document.getElementById('confirmInput');
+        const btn = document.getElementById('finalDeleteBtn');
+        const SECRET = "I_CONFIRM_MY_CHOICE";
+
+        input.addEventListener('input', (e) => {
+            if (e.target.value === SECRET) {
+                btn.disabled = false;
+            } else {
+                btn.disabled = true;
+            }
+        });
+
+btn.onclick = async () => {
+    const token = localStorage.getItem('token');
+    
+    try {
+        const response = await fetch('http://localhost:3000/auth/delete-me', {
+            method: 'DELETE',
+            headers: { 
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Акаунтът е изтрит успешно.");
+            localStorage.clear();
+            window.location.href = "./register.html";
+        } else {
+            // ТОВА ЩЕ ТИ КАЖЕ ТОЧНАТА ГРЕШКА
+            alert("Грешка от сървъра: " + (data.message || response.statusText));
+        }
+    } catch (err) {
+        alert("Няма връзка със сървъра: " + err.message);
+    }
+};
+    </script>
+</body>
+</html>
