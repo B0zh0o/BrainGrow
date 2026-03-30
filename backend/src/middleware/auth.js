@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+﻿import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "supersecretkey";
 
@@ -21,3 +21,11 @@ export function auth(req, res, next) {
     return res.status(403).json({ message: "Invalid or expired token." });
   }
 }
+
+export const isAdmin = (req, res, next) => {
+    if (req.user && req.user.role === 'admin') {
+        next();
+    } else {
+        return res.status(403).json({ message: "Достъпът е забранен. Изискват се админ права!" });
+    }
+};

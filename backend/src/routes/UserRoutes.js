@@ -1,6 +1,6 @@
 ﻿import { Router } from "express";
 import UserController from "../controllers/UserController.js";
-import { auth } from "../middleware/auth.js";
+import { auth, isAdmin } from "../middleware/auth.js";
 import User from "../models/User.js";
 
 const router = Router();
@@ -26,6 +26,6 @@ router.get("/", UserController.getAll);
 router.get("/:id", UserController.getOne);
 router.put("/:id", UserController.update);
 router.delete('/delete-me', auth, UserController.remove);
-
+router.put("/:id", auth, isAdmin, UserController.update);
 
 export default router;
