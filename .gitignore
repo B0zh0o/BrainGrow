@@ -9,3 +9,5 @@ node_modules/
 bin/
 obj/
 
+node_modules
+.env
