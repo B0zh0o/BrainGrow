@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards · BrainGrow</title>
+  <link rel="stylesheet" href="../css/flashcards.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="../index.html">BrainGrow</a>
+      <a href="flashcards.html" class="active">Flashcards</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="pomodoro.html">Pomodoro</a>
+    </div>
+    <div class="nav-right">
+      <a href="register.html">Register</a>
+      <a href="#" class="nav-logout" onclick="logout()">Logout</a>
+    </div>
+  </nav>
+
+  <main class="page">
+
+    <div class="page-header fade-up">
+      <h1>Flashcards</h1>
+      <p>Научи се чрез активно повторение</p>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-row fade-up">
+      <select id="categoryFilter" class="filter-select" onchange="filterCards()">
+        <option value="all">Всички категории</option>
+      </select>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap fade-up">
+      <div class="progress-meta">
+        <span class="label">Прогрес</span>
+        <span id="progress" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">0 / 0</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div id="card" class="flashcard fade-up" onclick="flipCard()">
+      <div class="flashcard-inner">
+        <div id="front" class="card-face front">
+          Няма карти
+          <span class="card-hint">натисни за обръщане</span>
+        </div>
+        <div id="back" class="card-face back"></div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="card-controls fade-up">
+      <button class="btn btn-ghost btn-sq" onclick="prevCard()" title="Предишна">⬅</button>
+      <button class="btn btn-ghost btn-sq" onclick="shuffle()"  title="Разбъркай">🔀</button>
+      <button class="btn btn-ghost btn-sq" onclick="nextCard()" title="Следваща">➡</button>
+    </div>
+
+    <!-- Mark -->
+    <div class="mark-controls fade-up">
+      <button class="btn btn-success" onclick="mark(true)">✓ &nbsp;Знам го</button>
+      <button class="btn btn-danger"  onclick="mark(false)">✗ &nbsp;Не знам</button>
+    </div>
+
+    <div class="divider fade-up"></div>
+
+    <!-- Add card -->
+    <div class="card add-panel fade-up">
+      <div class="label">Добави карта</div>
+      <div class="panel-row-2">
+        <input id="question" class="input" placeholder="Въпрос">
+        <input id="answer"   class="input" placeholder="Отговор">
+      </div>
+      <input id="category" class="input" placeholder="Категория (по избор)">
+      <button class="btn btn-primary btn-md btn-full" onclick="addCard()">+ Добави карта</button>
+    </div>
+
+    <!-- Admin -->
+    <div class="admin-controls fade-up">
+      <button class="btn btn-ghost btn-sm" style="color:var(--amber);border-color:rgba(245,166,35,0.2)" onclick="editCard()">✏ Редактирай</button>
+      <button class="btn btn-danger  btn-sm" onclick="deleteCard()">🗑 Изтрий</button>
+    </div>
+
+  </main>
+
+  <script src="../main.js"></script>
+</body>
+</html>

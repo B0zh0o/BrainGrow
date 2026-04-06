@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro · BrainGrow</title>
+  <link rel="stylesheet" href="../css/pomodoro.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="../index.html">BrainGrow</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="pomodoro.html" class="active">Pomodoro</a>
+    </div>
+    <div class="nav-right">
+      <a href="register.html">Register</a>
+      <a href="#" class="nav-logout" onclick="logout()">Logout</a>
+    </div>
+  </nav>
+
+  <main class="page">
+
+    <!-- Timer card -->
+    <div class="timer-card fade-up">
+      <p id="mode" class="mode-label">РАБОТА</p>
+      <div id="time" class="timer-display">40:00</div>
+      <p id="statusMessage" class="status-msg">Готов?</p>
+      <div class="timer-controls">
+        <button id="start" class="btn btn-primary btn-md">▶ Старт</button>
+        <button id="pause" class="btn btn-ghost   btn-md">⏸ Пауза</button>
+        <button id="reset" class="btn btn-ghost   btn-md" style="color:var(--muted)">↺ Нулирай</button>
+      </div>
+    </div>
+
+    <!-- Sessions -->
+    <div class="session-info fade-up">
+      Завършени сесии: <span id="sessionCount">0</span>
+    </div>
+
+    <!-- Add preset -->
+    <div class="card add-panel fade-up">
+      <div class="label">Добави пресет</div>
+      <div class="panel-row-3">
+        <input type="text"   id="labelInput" class="input" placeholder="Етикет">
+        <input type="number" id="workInput"  class="input" placeholder="Работа (мин)">
+        <input type="number" id="breakInput" class="input" placeholder="Почивка (мин)">
+      </div>
+      <button id="addSetting" class="btn btn-primary btn-md btn-full">+ Добави шаблон</button>
+    </div>
+
+    <!-- Presets -->
+    <div class="label fade-up">Шаблони</div>
+    <div id="settingsList" class="preset-list"></div>
+
+  </main>
+
+  <script src="../js/pomodoroLogic.js"></script>
+</body>
+</html>

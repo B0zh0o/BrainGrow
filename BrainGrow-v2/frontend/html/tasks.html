@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks · BrainGrow</title>
+  <link rel="stylesheet" href="../css/tasks.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="../index.html">BrainGrow</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="tasks.html" class="active">Tasks</a>
+      <a href="pomodoro.html">Pomodoro</a>
+    </div>
+    <div class="nav-right">
+      <a href="register.html">Register</a>
+      <a href="#" class="nav-logout" onclick="logout()">Logout</a>
+    </div>
+  </nav>
+
+  <main class="page">
+
+    <div class="page-header fade-up">
+      <h1>Tasks</h1>
+      <p>Управлявай задачите и сроковете си</p>
+    </div>
+
+    <!-- Add task -->
+    <div class="card add-panel fade-up">
+      <div class="label">Добави задача</div>
+      <div class="panel-row-2">
+        <input type="text" id="title"       class="input" placeholder="Заглавие" />
+        <input type="text" id="type"        class="input" placeholder="Тип (exam, homework…)" />
+      </div>
+      <textarea id="description" class="input" placeholder="Описание (по избор)" rows="2" style="resize:none"></textarea>
+      <button class="btn btn-primary btn-md btn-full" onclick="addTask()">+ Добави задача</button>
+    </div>
+
+    <!-- Task list -->
+    <div class="label fade-up">Списък задачи</div>
+    <ul id="taskList" class="task-list">
+      <div class="empty-state">Зареждане…</div>
+    </ul>
+
+  </main>
+
+  <script src="../js/tasks.js"></script>
+</body>
+</html>

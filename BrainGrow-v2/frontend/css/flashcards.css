@@ -1,0 +1,163 @@
+@import url('./shared.css');
+
+/* ── Flashcard specific layout ─── */
+.page { max-width: 560px; }
+
+/* ── Filter ─────────────────────── */
+.filter-row { width: 100%; }
+
+.filter-select {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6a82' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+.filter-select:focus { border-color: rgba(79,142,255,0.4); }
+.filter-select option { background: var(--surface2); }
+
+/* ── Progress bar ───────────────── */
+.progress-wrap { width: 100%; display: flex; flex-direction: column; gap: 6px; }
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.progress-track {
+  width: 100%;
+  height: 3px;
+  background: var(--surface2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 99px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+
+/* ── Flashcard ──────────────────── */
+.flashcard {
+  width: 100%;
+  height: 220px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.flashcard-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 36px;
+  backface-visibility: hidden;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  border: 1px solid var(--border);
+  background: linear-gradient(145deg, #0e1a2e, #111c30);
+  box-shadow: var(--glow), inset 0 1px 0 rgba(255,255,255,0.03);
+  transition: box-shadow 0.3s;
+}
+
+.card-face::before {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.6;
+}
+
+.card-face.front::before { content: 'ВЪПРОС'; color: var(--accent); }
+
+.card-face.back {
+  background: linear-gradient(145deg, #0a1a2a, #0d2240);
+  transform: rotateY(180deg);
+  border-color: rgba(16,217,140,0.15);
+  box-shadow: 0 0 40px rgba(16,217,140,0.08);
+}
+.card-face.back::before { content: 'ОТГОВОР'; color: var(--green); }
+
+.card-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-size: 10px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.45;
+}
+
+.flashcard:hover .card-face {
+  box-shadow: var(--glow), 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* ── Controls ───────────────────── */
+.card-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* ── Mark buttons ───────────────── */
+.mark-controls {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.mark-controls .btn { flex: 1; height: 48px; font-size: 14px; border-radius: 14px; }
+
+/* ── Add panel ──────────────────── */
+.add-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ── Admin ──────────────────────── */
+.admin-controls { display: flex; gap: 10px; width: 100%; }
+.admin-controls .btn { flex: 1; height: 42px; font-size: 13px; }
+
+/* ── Responsive ─────────────────── */
+@media (max-width: 480px) {
+  .panel-row-2 { grid-template-columns: 1fr; }
+  .flashcard { height: 190px; }
+  .card-face { font-size: 15px; padding: 24px 20px; }
+}

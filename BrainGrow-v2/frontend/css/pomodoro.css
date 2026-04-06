@@ -1,0 +1,79 @@
+@import url('./shared.css');
+
+.page { max-width: 520px; align-items: center; }
+
+/* ── Timer card ─────────────────── */
+.timer-card {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 0 60px rgba(79,142,255,0.07);
+}
+
+.mode-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+}
+
+.timer-display {
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-family: 'JetBrains Mono', monospace;
+  background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.status-msg { font-size: 13px; color: var(--muted); }
+
+.timer-controls { display: flex; gap: 10px; margin-top: 8px; }
+
+/* ── Session info ───────────────── */
+.session-info {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+.session-info span { color: var(--green); font-weight: 700; }
+
+/* ── Preset panel ───────────────── */
+.add-panel { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.panel-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+/* ── Preset list ────────────────── */
+.preset-list { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+
+.preset-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.preset-item:hover { border-color: rgba(79,142,255,0.3); background: var(--surface2); }
+.preset-item span { font-size: 14px; font-weight: 500; }
+
+/* ── Responsive ─────────────────── */
+@media (max-width: 480px) {
+  .timer-display { font-size: 56px; }
+  .timer-card { padding: 28px 20px; }
+  .panel-row-3 { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrainGrow — Учи по-умно</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #080c14;
+      --surface: #0e1623;
+      --surface2:#131e30;
+      --border:  rgba(99,152,255,0.13);
+      --accent:  #4f8eff;
+      --accent2: #7c3aed;
+      --green:   #10d98c;
+      --text:    #e8edf5;
+      --muted:   #5a6a82;
+    }
+
+    body {
+      font-family: 'Sora', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 15% 10%, rgba(79,142,255,0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 85% 85%, rgba(124,58,237,0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(16,217,140,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 48px;
+      height: 60px;
+      background: rgba(8,12,20,0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links { display: flex; gap: 4px; }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+
+    .nav-cta {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 8px 20px;
+      border-radius: 10px;
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: 0.92; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(79,142,255,0.25);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 24px rgba(79,142,255,0.35); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: rgba(99,152,255,0.3); background: rgba(255,255,255,0.04); }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      gap: 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 99px;
+      background: rgba(79,142,255,0.1);
+      border: 1px solid rgba(79,142,255,0.2);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.06em;
+      margin-bottom: 28px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .hero-title {
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #ffffff 0%, #c7d8ff 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s 0.1s ease both;
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 2.5vw, 18px);
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      animation: fadeUp 0.5s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 64px;
+      animation: fadeUp 0.5s 0.3s ease both;
+    }
+
+    .btn-hero {
+      padding: 14px 32px;
+      font-size: 15px;
+      border-radius: 12px;
+    }
+
+    /* ── Feature cards ── */
+    .features {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .features-title {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 32px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.1s; }
+    .feature-card:nth-child(2) { animation-delay: 0.2s; }
+    .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+    .feature-card:hover {
+      border-color: rgba(79,142,255,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: 20px 20px 0 0;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-card.blue::before  { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+    .feature-card.green::before { background: linear-gradient(90deg, var(--green), var(--accent)); }
+    .feature-card.amber::before { background: linear-gradient(90deg, #f5a623, var(--red)); }
+
+    .feature-icon {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .feature-name {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .feature-arrow {
+      margin-top: auto;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s, gap 0.2s;
+    }
+    .feature-card:hover .feature-arrow { color: var(--accent); gap: 8px; }
+
+    /* ── Stats row ── */
+    .stats {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 60px;
+      padding: 0 24px;
+      animation: fadeUp 0.5s 0.4s ease both;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg, #fff, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* ── Animation ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .navbar { padding: 0 20px; }
+      .nav-links { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .stats { gap: 24px; flex-wrap: wrap; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-cta { flex-direction: column; align-items: center; }
+      .btn-hero { width: 100%; max-width: 280px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">BrainGrow</a>
+    <div class="nav-links">
+      <a href="html/flashcards.html">Flashcards</a>
+      <a href="html/tasks.html">Tasks</a>
+      <a href="html/pomodoro.html">Pomodoro</a>
+    </div>
+    <div class="nav-cta">
+      <a href="html/login.html"    class="btn btn-outline">Влез</a>
+      <a href="html/register.html" class="btn btn-primary">Регистрация</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">Инструменти за ефективно учене</div>
+    <h1 class="hero-title">Учи по-умно.<br>Постигай по-добри резултати.</h1>
+    <p class="hero-sub">
+      BrainGrow обединява задачи, флашкарти и Pomodoro техника
+      в единна среда за по-добра организация и концентрация.
+    </p>
+    <div class="hero-cta">
+      <a href="html/register.html" class="btn btn-primary btn-hero">Започни работа</a>
+      <a href="html/login.html"    class="btn btn-outline  btn-hero">Вход</a>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">3</div>
+        <div class="stat-label">Инструмента за учене</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">∞</div>
+        <div class="stat-label">Flashcard-и</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">Фокусирано учене</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <p class="features-title">Какво включва</p>
+    <div class="features-grid">
+
+      <a href="html/flashcards.html" class="feature-card blue">
+        <div class="feature-icon"></div>
+        <div class="feature-name">Флашкарти</div>
+        <div class="feature-desc">
+          Създавай въпрос-отговор карти, организирай ги по категории
+          и следи напредъка си с всяка сесия.
+        </div>
+        <div class="feature-arrow">Отвори &nbsp;→</div>
+      </a>
+
+      <a href="html/tasks.html" class="feature-card green">
+        <div class="feature-icon"></div>
+        <div class="feature-name">Задачи</div>
+        <div class="feature-desc">
+          Добавяй задачи с тип и описание. Следи какво трябва да свършиш
+          и изтривай готовото.
+        </div>
+        <div class="feature-arrow">Отвори &nbsp;→</div>
+      </a>
+
+      <a href="html/pomodoro.html" class="feature-card amber">
+        <div class="feature-icon"></div>
+        <div class="feature-name">Pomodoro</div>
+        <div class="feature-desc">
+          Работи на фокусирани интервали. Запазвай персонални пресети
+          и следи броя завършени сесии.
+        </div>
+        <div class="feature-arrow">Отвори &nbsp;→</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Auto-redirect if already logged in -->
+  <script>
+    if (localStorage.getItem("token")) {
+      document.querySelector(".nav-cta").innerHTML = `
+        <a href="html/flashcards.html" class="btn btn-primary">Към приложението →</a>
+      `;
+    }
+  </script>
+
+</body>
+</html>
